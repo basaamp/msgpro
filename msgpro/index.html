@@ -1,0 +1,307 @@
+<html>
+<head>
+<style>
+* {
+   margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(38deg, #117eff, #00BCD4);
+    border: none;
+    padding: 0;
+	flex-direction: column;
+	//height: 100%;
+	width: 100%;
+}
+style, script {
+display: none;
+}
+html{ display: block;}
+body {
+justify-content: space-between;
+}
+/*messages box*/
+
+
+#chatbox {
+flex-direction: row
+}
+
+.webtitle {
+    font-weight: 100;
+    font-family: sans-serif;
+    background: none;
+    padding: 8px;
+    letter-spacing: 2px;
+    margin: 8px;
+	}
+.msgproicon {
+    background: none;
+    height: 88px;
+    width: 88px;
+    margin: 8px;
+    padding: 8px;
+}
+#profilepic {
+heigt: 88px;
+width: 88px;
+}
+/*sending div */
+.senddiv{ 
+    background: none;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #525151;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+}
+#sendinputtxt {background: none;
+    background-color: white;
+    height: 100%;
+    width: max-content;
+    min-width: 94%;}
+#sendtxtbutton {
+    background: none;
+    background-image: url(file:///C:/Users/basaampro/Downloads/send-button.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 28px;
+    height: 100%;
+    /* border: 2px solid white; */
+    background-color: white;
+    /* border-radius: 100%; */
+    backgroundcolor: white;
+    /* max-height: 28px; */
+    max-width: 28px;
+    min-width: 6%;
+}
+
+
+
+#scrolledmessages {
+  height: 96%;
+     overflow: scroll;
+    overflow-x: hidden;
+	}
+	
+#menu{
+    position: fixed;
+    left: 0;
+    font-size: 17px;
+    width: 74px;
+    padding: 7px;
+    margin: 4px;
+	}
+#registerform {
+display: none;
+height: 100%;
+width: 100%;
+}
+
+#loginform {
+display: none;
+height: 100%;
+width: 100%;
+}
+
+#welcome {
+flex-direction: column;
+height: 100%;
+width: 100%;
+position: fixed;
+}
+#welcome button {
+border-radius: 4px;
+    font-size: 25px;
+    padding: 5px;
+    margin: 8px;
+    width: 258px;
+}
+</style>
+</head>
+<body>
+<button onClick="displaymenu()" id="menu">Menu</button>
+<form id = "registerform"  >
+        <input type="text" id="newusername" placeholder="username" name="userx"/>
+        <input type="text" id="newpassword" placeholder="email" name="email" />
+        <button onClick="signuptogglefunc(event)" >signupform</button>
+	
+        </form>
+		
+    <div id="welcome">
+	<h1 class="webtitle" >msgpro</h1>
+    <img class = "msgproicon" src="C:\Users\basaampro\Desktop\social\msgpro.png" />
+	<button onCLick="displaysignup()">displaySignup</button>
+	<button onCLick="displaylogin()">displayLogin</button>
+   </div>
+ <form id="loginform" >
+        <input type="text" id="loginusername" placeholder="username" name="userx"/>
+        <input type="text" id="loginpassword" placeholder="password" name="email" />
+		<button onClick="ioio2(event)">Loginform</button>
+        </form>
+		
+		
+                <div id="scrolledmessages">
+		</div>
+		
+		<div class= "senddiv">
+		<input type="text"  id="sendinputtxt" name="Upload" />
+		<button id="sendtxtbutton" onClick="ioio2(event)"></button>
+		</div>
+<script>
+/// login form usernames ids
+
+    var Newusername = document.getElementById("newusername");
+	var Newpassword = document.getElementById("newpassword");
+	
+	var Loginusername = document.getElementById("loginusername");
+	var Loginpassword = document.getElementById("loginpassword");
+	var signuptoggle = 'false';
+	var inputtxtmsg = document.getElementById("sendinputtxt");
+	var registerformid = document.getElementById("registerform");
+	var Loginform = document.getElementById("loginform");
+	
+	var Welcome = document.getElementById("welcome");
+
+	
+/// register forms usernames ids
+
+/////messaes container
+var messagescontainer = document.getElementById("scrolledmessages");
+var previousdata = '';
+
+var i = 0;
+function messagesloop(jsondata, difference) {
+/*
+while(22 > 2) {
+var p = document.createElement("p");
+document.body.appendChild(p);
+}
+*/
+var cars = ["BMW", "Volvo", "Saab", "Ford"];
+var text = "";
+//alert(jsondata.length)
+//alert(previousdata);
+alert(Loginusername.value + Loginpassword.value + inputtxtmsg.value)
+while (jsondata[i]) {
+//alert(jsondata[i].name)
+var textstring = document.createTextNode(jsondata[i].messages + i);
+var prouserstring = document.createTextNode(jsondata[i].username + i);
+var msgbox = document.createElement("div");
+msgbox.style.flexDirection = "row";
+msgbox.style.borderBottom = "1px solid gray";
+ 
+var probox = document.createElement("div");
+probox.style.width = "128px";
+probox.style.background = "none";
+var msgpropic = document.createElement("div");
+msgpropic.style.backgroundImage = "url(file:///C:/Users/basaampro/Desktop/social/msgpro.png)";
+msgpropic.style.backgroundSize = "100% 100%";
+msgpropic.style.height = "48px";
+msgpropic.style.width = "48px";
+var p = document.createElement("p");
+p.style.background = "none";
+p.style.display = "block";
+p.style.wordBreak = "break-word";
+
+var prousername = document.createElement("p");
+prousername.style.background = "none";
+prousername.appendChild(prouserstring);
+p.appendChild(textstring);
+//messagescontainer.appendChild(p);
+probox.appendChild(msgpropic);
+probox.appendChild(prousername);
+msgbox.appendChild(probox);
+msgbox.appendChild(p);
+messagescontainer.appendChild(msgbox);
+  text += jsondata[i].name + "<br>";
+  i++;
+}			
+
+}
+
+function signuptogglefunc(event) {
+event.preventDefault();
+alert(signuptoggle)
+signuptoggle = 'true';
+Loginusername.value = Newusername.value;
+Loginpassword.value = Newpassword.value;
+ioio2(event)
+alert(Newusername.value + Newpassword.value)
+}
+function displaysignup() {
+registerformid.style.display = "flex";
+Loginform.style.display = "none";
+	Welcome.style.display = "none";
+}
+
+function displaymenu() {
+ if(Welcome.style.display === "flex") {
+	Welcome.style.display = "none";
+	messagescontainer.style.display = "flex";
+  } else {
+  Welcome.style.display = "flex";
+  messagescontainer.style.display = "none";
+  }
+  registerformid.style.display = "none";
+  Loginform.style.display = "none";
+}
+function displaylogin() {
+Loginform.style.display = "flex";
+registerformid.style.display = "none";
+	Welcome.style.display = "none";
+}
+
+    function ioio2(event) {
+event.preventDefault();
+alert(2)
+	//alert(Loginusername.value + Loginpassword.value + 22222);
+	   const iodata = new FormData();
+     iodata.append("userii", "iiziindexii");
+fetch('http://localhost:1337/ioio=2i3o&&name='+Loginusername.value+'&&password='+Loginpassword.value+'&&msgtxt='+inputtxtmsg.value+'&&signup='+signuptoggle+'', {
+  method: 'POST',
+  headers: {
+        //'Accept': 'application/json',
+       'Content-Type': 'multipart/form-data'
+    },
+    //body: iodata,
+    })
+  .then((response) => {
+    return response.json()
+  })
+  .then((json) => {
+  
+  //alert(json)
+  //alert(json.length - previousdata.length + 'difference')
+  var difference = json.length - previousdata.length;
+  //alert(json.length + 'new data')
+  //alert(previousdata.length + 'previousdata')
+  previousdata = json;
+  if(signuptoggle == 'true') {
+  signuptoggle = 'false'
+  }
+  
+  if(json.signup = "true") {
+  registerformid.style.display = "none";
+  Loginform.style.display = "flex";
+  } 
+  
+  if(json[0].messages == "true") {
+  alert('login true')
+  messagescontainer.style.display = "flex";
+    Loginform.style.display = "none";
+	Welcome.style.display = "none";
+	
+  }
+	messagesloop(json, difference)
+	inputtxtmsg.value = "";
+	
+  });
+  
+}
+ 
+</script>
+</body>
+</html>
